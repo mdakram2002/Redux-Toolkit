@@ -1,10 +1,37 @@
 
 import { useDispatch, useSelector } from "react-redux";
 import { decrement, increment, reset } from "./features/counter/counterSlice";
+import { useEffect, useState } from "react";
 
 function App() {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
+  const [total, setTotal] = useState(0);
+
+  //  --------------- useEffect PRACTICE ------------------
+
+  // that is run for every render:
+  // useEffect(() => {
+  //   alert("I will run on each render!");
+  // });
+
+  // its run only run first render
+  // useEffect(() => {
+  //   alert("I will run on only first render!");
+  // },[]);
+
+  // it will run for every render based on  dependencie
+  // useEffect(() => {
+  //   alert("I will run on each render!");
+  // }, [count]);
+
+  useEffect(() => {
+    alert("I will run when count and total updated!");
+  }, [count, total]);
+
+  function handleClick() {
+    setTotal(count + 1);
+  }
 
   const styles = {
     container: {
@@ -83,6 +110,10 @@ function App() {
         <h1 style={styles.title}>🎯 Redux Counter</h1>
 
         <div style={styles.counter}>{count}</div>
+        <div>
+          <p>{total}</p>
+          {/* <button onClick={handleClick()}></button> */}
+        </div>
 
         <div style={styles.buttonContainer}>
           <button
